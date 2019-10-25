@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IUser } from '../interfaces/user.interface';
 import { generateHashedPassword, generateSalt } from '../../../utilities/encryption';
 import { MESSAGES, USER_MODEL_TOKEN } from '../../../constants';
+import { RolesEnum } from '../../../enums/roles.enum';
 
 @Injectable()
 export class LocalStrategy {
@@ -27,9 +28,9 @@ export class LocalStrategy {
         }
 
         const salt: string = generateSalt();
-        const user = new this.userModel({
+        const user: IUser = new this.userModel({
           method: 'local',
-          roles: ['user', 'admin'],
+          roles: [RolesEnum.User],
           local: {
             email,
             salt,

@@ -6,6 +6,7 @@ import { use } from 'passport';
 import { FACEBOOK_CONFIG_TOKEN, USER_MODEL_TOKEN } from '../../../constants';
 import { IFacebookConfig } from '../interfaces/facebook-config.interface';
 import { IUser } from '../interfaces/user.interface';
+import { RolesEnum } from '../../../enums/roles.enum';
 
 const FacebookTokenStrategy = require('passport-facebook-token');
 
@@ -31,9 +32,9 @@ export class FacebookStrategy {
         }
 
         const email: string = profile.emails.shift().value;
-        const user = new this.userModel({
+        const user: IUser = new this.userModel({
           method: 'facebook',
-          roles: ['user'],
+          roles: [RolesEnum.User],
           facebook: {
             email,
             id: profile.id

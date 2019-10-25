@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { TWITTER_CONFIG_TOKEN, USER_MODEL_TOKEN } from '../../../constants';
 import { IUser } from '../interfaces/user.interface';
 import { ITwitterConfig } from '../interfaces/twitter-config.interface';
+import { RolesEnum } from '../../../enums/roles.enum';
 
 const TwitterTokenStrategy = require('passport-twitter-token');
 
@@ -31,9 +32,9 @@ export class TwitterStrategy {
         }
 
         const { id, username, displayName } = profile;
-        const user = new this.userModel({
+        const user: IUser = new this.userModel({
           method: 'twitter',
-          roles: ['user'],
+          roles: [RolesEnum.User],
           twitter: {
             id,
             username,

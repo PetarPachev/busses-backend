@@ -66,6 +66,10 @@ export class AuthService {
     return await this.userModel.findById(id);
   }
 
+  async getUsers(): Promise<IUser[]> {
+    return await this.userModel.find();
+  }
+
   async requestFacebookRedirectUri(): Promise<{redirect_uri: string}> {
     const queryParams: string[] = [
       `client_id=${this.fbConfig.client_id}`,

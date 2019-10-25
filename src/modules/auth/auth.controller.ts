@@ -1,10 +1,14 @@
-import { Controller, Post, Get, Req } from '@nestjs/common';
+import { Controller, Post, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { IToken } from './interfaces/token.interface';
 import { Request } from 'express';
 import { IUser } from './interfaces/user.interface';
+import { Roles } from '../../decorators/roles.decorator';
+import { RolesEnum } from '../../enums/roles.enum';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../../guards/roles.guard';
 
-@Controller('api/auth')
+@Controller('api/Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -84,5 +88,12 @@ export class AuthController {
     user: IUser;
   }): Promise<IToken> {
     return await this.authService.createToken(req.user);
+  }
+
+  @Get('users')
+  @Roles(RolesEnum.Admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async getUsers(): Promise<IUser[]> {
+    return await this.authService.getUsers();
   }
 }

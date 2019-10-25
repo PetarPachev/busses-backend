@@ -23,7 +23,7 @@ const jwtSecret = extractKey(`${rootPath}/keys/jwt.private.key`);
 const Config: IConfig = {
   development: {
     rootPath,
-    db: 'mongodb+srv://petyo:26262626@cluster1-7eb9a.mongodb.net/test?retryWrites=true&w=majority',
+    db: 'mongodb://127.0.0.1:27017/busses',
     httpPort: 1337,
     wsPort: 1338,
     jwtSecret,

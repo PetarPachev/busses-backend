@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { GOOGLE_CONFIG_TOKEN, USER_MODEL_TOKEN } from '../../../constants';
 import { IGoogleConfig } from '../interfaces/google-config.interface';
 import { IUser } from '../interfaces/user.interface';
+import { RolesEnum } from '../../../enums/roles.enum';
 
 const GoogleTokenStrategy = require('passport-google-plus-token');
 
@@ -32,9 +33,9 @@ export class GoogleStrategy {
 
         const { id, displayName } = profile;
         const email: string = profile.emails.shift().value;
-        const user = new this.userModel({
+        const user: IUser = new this.userModel({
           method: 'google',
-          roles: ['user'],
+          roles: [RolesEnum.User],
           google: {
             id,
             email,

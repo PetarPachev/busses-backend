@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 import { USERS_BUSSES_MODEL_TOKEN } from '../../constants';
 import { IUsersBusses } from './interfaces/usersBusses.interface';
 import { CreateUsersBussesDTO } from './dto/createUsersBusses.dto';
-import { DeleteUsersBussesDTO } from './dto/deleteUsersBusses.dto';
 
 @Injectable()
 export class UsersBussesService {
@@ -17,7 +16,7 @@ export class UsersBussesService {
     return await created.save();
   }
 
-  async delete({ id }: DeleteUsersBussesDTO): Promise<IUsersBusses> {
+  async delete(id): Promise<IUsersBusses> {
     return await this.usersBussesModel.findByIdAndRemove(id);
   }
 }

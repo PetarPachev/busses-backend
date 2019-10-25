@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
 export const UsersBussesSchema: Schema = new Schema({
-  userId: String,
-  busId: String
+  userId: { type: String, index: true },
+  busId: { type: String, index: true }
 });
